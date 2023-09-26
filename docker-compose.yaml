@@ -12,9 +12,7 @@ services:
 
     php:
         container_name: cicd_php
-        build:
-            dockerfile: .docker/php/Dockerfile
-            context: ./
+        image: pirojok/cicd-learn:latest
         depends_on:
             - rabbitmq
         volumes:
