@@ -1,9 +1,7 @@
-name: dev
+name: Symfony-tests
 
 on:
     push:
-        branches: [ "main" ]
-    pull_request:
         branches: [ "main" ]
 
 permissions:
