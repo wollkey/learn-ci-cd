@@ -26,4 +26,4 @@ jobs:
             with:
                 file: .docker/php/Dockerfile
                 push: true
-                tags: user/app:latest
+                tags: pirojok/cicd-learn:latest
