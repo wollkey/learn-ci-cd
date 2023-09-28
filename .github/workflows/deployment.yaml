@@ -34,7 +34,7 @@ jobs:
                 username: ${{ secrets.USERNAME }}
                 password: ${{ secrets.PASSWORD }}
                 script: cd /var/www/cicd &&
-                    wget https://raw.githubusercontent.com/wollkey/learn-ci-cd/main/docker-compose.yaml
-                    wget https://raw.githubusercontent.com/wollkey/learn-ci-cd/main/.docker/nginx/server.conf
+                    wget https://raw.githubusercontent.com/wollkey/learn-ci-cd/main/docker-compose.yaml &&
+                    wget https://raw.githubusercontent.com/wollkey/learn-ci-cd/main/.docker/nginx/server.conf &&
                     docker-compose up -d
 
