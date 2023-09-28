@@ -11,5 +11,14 @@ COPY .docker/php/config/dev.ini ${PHP_INI_DIR}/conf.d/docker-php-ext-xdebug.ini
 WORKDIR /var/www
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY ./composer.* .
+
+RUN composer install --no-cache --no-ansi --no-autoloader --no-scripts --no-dev
+
+COPY ./ .
+
+RUN set -x \
+    && composer dump-autoload -n --optimize \
+    && composer install
 
 CMD ["php-fpm"]
