@@ -12,28 +12,29 @@ jobs:
         steps:
         -   name: Checkout
             uses: actions/checkout@v3
-        -   name: Set up QEMU
-            uses: docker/setup-qemu-action@v3
-        -   name: Set up Docker Buildx
-            uses: docker/setup-buildx-action@v3
-        -   name: Login to Docker Hub
-            uses: docker/login-action@v3
-            with:
-                username: ${{ secrets.DOCKERHUB_USERNAME }}
-                password: ${{ secrets.DOCKERHUB_TOKEN }}
-        -   name: Build and push
-            uses: docker/build-push-action@v5
-            with:
-                file: .docker/php/Dockerfile
-                push: true
-                tags: pirojok/cicd-learn:latest
+#        -   name: Set up QEMU
+#            uses: docker/setup-qemu-action@v3
+#        -   name: Set up Docker Buildx
+#            uses: docker/setup-buildx-action@v3
+#        -   name: Login to Docker Hub
+#            uses: docker/login-action@v3
+#            with:
+#                username: ${{ secrets.DOCKERHUB_USERNAME }}
+#                password: ${{ secrets.DOCKERHUB_TOKEN }}
+#        -   name: Build and push
+#            uses: docker/build-push-action@v5
+#            with:
+#                file: .docker/php/Dockerfile
+#                push: true
+#                tags: pirojok/cicd-learn:latest
         -   name: executing remote ssh commands using password
             uses: appleboy/ssh-action@v1.0.0
             with:
                 host: ${{ secrets.HOST }}
                 username: ${{ secrets.USERNAME }}
                 password: ${{ secrets.PASSWORD }}
-                script: cd /var/www/cicd &&
+                script: |
+                    cd /var/www/cicd &&
                     wget https://raw.githubusercontent.com/wollkey/learn-ci-cd/main/docker-compose.yaml &&
                     wget https://raw.githubusercontent.com/wollkey/learn-ci-cd/main/.docker/nginx/server.conf &&
                     if docker ps -q -f name="cicd_web" | grep -q .; then
