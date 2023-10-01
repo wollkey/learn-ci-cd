@@ -9,10 +9,17 @@ services:
         volumes:
             - ./server.conf:/etc/nginx/conf.d/default.conf
         depends_on:
-            - php
+            - php-blue
+            - php-green
 
-    php:
-        container_name: cicd_php
+    php-blue:
+        container_name: cicd_php_blue
+        image: pirojok/cicd-learn:latest
+        depends_on:
+            - rabbitmq
+
+    php-green:
+        container_name: cicd_php_green
         image: pirojok/cicd-learn:latest
         depends_on:
             - rabbitmq

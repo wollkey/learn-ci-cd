@@ -36,5 +36,14 @@ jobs:
                 script: cd /var/www/cicd &&
                     wget https://raw.githubusercontent.com/wollkey/learn-ci-cd/main/docker-compose.yaml &&
                     wget https://raw.githubusercontent.com/wollkey/learn-ci-cd/main/.docker/nginx/server.conf &&
-                    docker-compose up -d
-
+                    if docker ps -q -f name="cicd_web" | grep -q .; then
+                        if docker ps -q -f name="cicd_php_green" | grep -q .; then
+                            docker-compose up -d rabbitmq php-blue web
+                            docker stop cicd_php_green
+                        else
+                            docker-compose up -d php-green
+                            docker stop cicd_php_blue
+                        fi
+                    else
+                        docker-compose up -d
+                    fi
